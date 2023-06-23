@@ -1,0 +1,53 @@
+--create employee table
+Create table Employee (
+ ID int (1,1) NOT NULL IDENTITY,
+ EmployeeID varchar(10) not null unique,
+ Fullname varchar(100) not null,
+ Birthdate date not null,
+ Address varchar(500) null,
+Constraint PK_Employee PRIMARY KEY Clustered
+( ID ASC
+)
+)
+GO
+set identity_insert Employee ON
+--insert data
+Insert Employee(ID, EmployeeID, Fullname, Birthdate, Address) Values (1, 10105001, 'ali anton', cast('1982-08-19' as date), 'Jakarta utara');
+Insert Employee(ID, EmployeeID, Fullname, Birthdate, Address) Values (2, 10105002, 'Rara Siva', cast('1982-01-01' as date), 'Mandalika');
+Insert Employee(ID, EmployeeID, Fullname, Birthdate, Address) Values (3, 10105003, 'Rini Aini', cast('1982-02-20' as date), 'Sumbawa Besar');
+Insert Employee(ID, EmployeeID, Fullname, Birthdate, Address) Values (4, 10105004, 'Budi', cast('1982-02-12' as date), 'Mataram Kota');
+
+set identity_insert employee off
+GO
+
+--create position table
+Create table Position_History (
+ ID int (1,1) NOT NULL IDENTITY,
+ PosID varchar(10) not null,
+ Postitle varchar(100) not null,
+ EmployeeID varchar(10) not null,
+ StartDate date not null,
+ EndDate date not null,
+Constraint PK_Position_History PRIMARY KEY Clustered
+( ID ASC
+)
+)
+GO
+set identity_insert position_History ON
+--insert data
+Insert Position_History(ID, PosID, Postitle, EmployeeID, StartDate, EndDate) Values (1, 50001, 'IT Sr.Manager', 10105001, cast('2022-03-1' as date), cast('2022-12-31' as date));
+Insert Position_History(ID, PosID, Postitle, EmployeeID, StartDate, EndDate) Values (2, 50000, 'IT Manager', 10105001, cast('2022-01-01' as date), cast('2022-02-28' as date));
+Insert Position_History(ID, PosID, Postitle, EmployeeID, StartDate, EndDate) Values (3, 50002, 'Programmer Analyst', 10105002, cast('2022-01-01' as date), cast('2022-02-28' as date));
+Insert Position_History(ID, PosID, Postitle, EmployeeID, StartDate, EndDate) Values (4, 50003, 'Sr. Programmer Analyst', 10105002, cast('2022-03-01' as date), cast('2022-12-31' as date));
+Insert Position_History(ID, PosID, Postitle, EmployeeID, StartDate, EndDate) Values (5, 50004, 'IT Admin', 10105003, cast('2022-01-01' as date), cast('2022-02-28' as date));
+Insert Position_History(ID, PosID, Postitle, EmployeeID, StartDate, EndDate) Values (6, 50005, 'IT Secretary', 10105003, cast('2022-03-01' as date), cast('2022-12-31' as date));
+set identity_insert position_History off
+GO
+
+
+
+
+--create query to display all
+select a.employeeid, a.fullname, a.birthdate, a.address, b.posid, b.postitle, b.employeeid, b.startdate, b.enddate from employee a
+left join position_history b
+on a.employeeid=b.employeeid;
